@@ -11,6 +11,9 @@ public class Dice : MonoBehaviour
     
     [SerializeField]
     private Rigidbody _rigidbody;
+
+    [SerializeField] 
+    private int _number;
     
     private Transform _cachedTransform;
     
@@ -19,23 +22,28 @@ public class Dice : MonoBehaviour
         _cachedTransform = transform;
     }
 
-    public void Throw(TransformAnimation transformAnimation)
+    public void ThrowWithRandomNumber(IAnimation<Transform, TransformAnimationKey> transformAnimation)
     {
-        var value = Random.Range(1, 7);
-        Throw(transformAnimation, value);
+        var number = Random.Range(1, 7);
+        Throw(transformAnimation, number);
     }
 
-    public void Throw(TransformAnimation transformAnimation, int value)
+    public void Throw(IAnimation<Transform, TransformAnimationKey> transformAnimation, int number)
     {
         _rigidbody.isKinematic = true;
+        _number = number;
+
+#if UNITY_EDITOR
+        gameObject.name = _number.ToString();
+#endif
         
         var endRotation = transformAnimation.LastKey.Rotation;
-        _diceView.RotateWithValueOnTop(value, endRotation);
+        _diceView.RotateWithNumberOnTop(number, endRotation);
         
         StartCoroutine(Animate(transformAnimation));
     }
 
-    private IEnumerator Animate(TransformAnimation transformAnimation)
+    private IEnumerator Animate(IAnimation<Transform, TransformAnimationKey> transformAnimation)
     {
         var elapsedTime = Time.deltaTime;
         transformAnimation.ApplyFirstFrame(_cachedTransform);

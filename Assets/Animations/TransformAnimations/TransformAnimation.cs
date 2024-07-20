@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public readonly struct TransformAnimation : IAnimation<Transform>
+public class TransformAnimation : IAnimation<Transform, TransformAnimationKey>
 {
     private readonly float _animationStep;
     private readonly TransformAnimationKey[] _animationKeys;
     
     public int Length => _animationKeys.Length;
     public TransformAnimationKey FirstKey => _animationKeys[0];
-    public TransformAnimationKey LastKey => _animationKeys[Length];
+    public TransformAnimationKey LastKey => _animationKeys[Length - 1];
 
     public TransformAnimation(float animationStep, TransformAnimationKey[] animationKeys)
     {
@@ -19,7 +19,7 @@ public readonly struct TransformAnimation : IAnimation<Transform>
     
     public bool IsContinue(float elapsedTime)
     {
-        return (int)(elapsedTime / _animationStep) < _animationKeys.Length;
+        return (int)(elapsedTime / _animationStep) < _animationKeys.Length - 1;
     }
 
     public void ApplyTo(Transform transform, float elapsedTime)
@@ -33,15 +33,16 @@ public readonly struct TransformAnimation : IAnimation<Transform>
     private void ApplyFrameAtTime(Transform transform, float elapsedTime)
     {
         var previousIndex = (int)(elapsedTime / _animationStep);
-        var nextIndex = (int)(elapsedTime / _animationStep);
+        var nextIndex = previousIndex + 1;
         
         var previousKey = _animationKeys[previousIndex];
         var nextKey = _animationKeys[nextIndex];
 
         var elapsedSinceLastKey = elapsedTime - previousIndex * _animationStep;
+        var t = elapsedSinceLastKey / _animationStep;
 
-        transform.position = Vector3.Lerp(previousKey.Position, nextKey.Position, elapsedSinceLastKey);
-        transform.rotation = Quaternion.Lerp(previousKey.Rotation, nextKey.Rotation, elapsedSinceLastKey);
+        transform.position = Vector3.Lerp(previousKey.Position, nextKey.Position, t);
+        transform.rotation = Quaternion.Lerp(previousKey.Rotation, nextKey.Rotation, t);
     }
 
     public void ApplyLastFrame(Transform transform)
@@ -57,12 +58,4 @@ public readonly struct TransformAnimation : IAnimation<Transform>
         transform.position = key.Position;
         transform.rotation = key.Rotation;
     }
-}
-
-public interface IAnimation<T>
-{
-    bool IsContinue(float elapsedTime);
-    void ApplyLastFrame(T target);
-    void ApplyTo(T target, float elapsedTime);
-    void ApplyFirstFrame(T target);
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DiceView : MonoBehaviour
 {
@@ -21,15 +20,18 @@ public class DiceView : MonoBehaviour
         _cachedTransform = transform;
     }
 
-    public void RotateWithValueOnTop(int value, Quaternion endRotation)
+    public void RotateWithNumberOnTop(int number, Quaternion endRotation)
     {
-        var endValue = GetValueFromRotation(endRotation);
-        var endDirection = _sideDirections[endValue];
-        var targetDirection = _sideDirections[value - 1];
+        var targetDirectionIndex = number - 1;
+        var endNumber = GetNumberFromRotation(endRotation);
+        
+        var endDirection = _sideDirections[endNumber];
+        var targetDirection = _sideDirections[targetDirectionIndex];
+        
         _cachedTransform.rotation *= Quaternion.FromToRotation(targetDirection, endDirection);
     }
 
-    private int GetValueFromRotation(Quaternion endRotation)
+    private int GetNumberFromRotation(Quaternion endRotation)
     {
         var temp = _cachedTransform.rotation;
         _cachedTransform.rotation = endRotation;

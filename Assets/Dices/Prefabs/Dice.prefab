@@ -43,9 +43,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34654481435368640}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 5
   m_Drag: 0
-  m_AngularDrag: 1
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -69,7 +69,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34654481435368640}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c12d42adfc21aa649a88f38999ef6725, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _diceView: {fileID: 7693478507918022168}
-  _value: 0
+  _rigidbody: {fileID: 8198327066956394339}
 --- !u!1001 &926598280296517214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38bfc214a9bd4db8950f12a1f14486b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotation:
+  _sideDirections:
   - {x: 0, y: 1, z: 0}
   - {x: 0, y: 0, z: 1}
   - {x: -1, y: 0, z: 0}
