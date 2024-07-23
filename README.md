@@ -1,10 +1,35 @@
 # Playvision test task
 
-### Structure
 
-Repository contains solution of test task for Playvision. 
+Repository contains solution of [test task for Playvision](https://playvision.notion.site/Unity-06482e0128b341c1a1c13db137357d21). 
 The project structure is based on features. 
 It means that each feature have its own folder where placed scripts, prefabs, materials etc. for objects that support that feature.
+
+
+Solution allow to simulate physical throwing dices with selected numbers.
+
+
+### Structure
+
+```
+Test-Task-Playvision
+├── Assets
+│   ├───Animations
+│   │   └───TransformAnimations
+│   │       └───Recorders
+│   ├───Dices
+│   │   ├───Prefabs
+│   │   │   └───Models
+│   │   └───Views
+│   ├───DiceThrowers
+│   │   └───Editor
+│   ├───Extensions
+│   ├───Materials
+│   ├───Scenes
+│   └───TextMesh Pro
+├── Packages
+└─── ProjectSettings
+```
 
 
 * [PhysicalTransformAnimationRecorder.cs](Assets/Animations/TransformAnimations/Recorders/PhysicalTransformAnimationRecorder.cs)
@@ -13,7 +38,7 @@ It means that each feature have its own folder where placed scripts, prefabs, ma
 
 * [TransformAnimation.cs](Assets/Animations/TransformAnimations/TransformAnimation.cs)
   
-  * Defines an animation based on transformations (position, rotation, scale) of game objects.
+  * Defines an animation based on transformations (position, rotation) of game objects.
 
 * [TransformAnimationKey.cs](Assets/Animations/TransformAnimations/TransformAnimationKey.cs)
   
